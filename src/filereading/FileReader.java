@@ -1,6 +1,7 @@
 package filereading;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,6 +21,21 @@ public class FileReader {
 		}
 		
 		return input;
+	}
+	
+	public static PrintWriter printToFile(String f) {
+		
+		File file = new File(f);
+		PrintWriter out = null;
+		
+		try {
+			out = new PrintWriter(file);
+		} catch (FileNotFoundException ex ) {
+			System.out.println("Part 2: Unable to open file " + f);
+			return null;
+		}
+		
+		return out;
 	}
 	
 	public static String convToString (Scanner input) {

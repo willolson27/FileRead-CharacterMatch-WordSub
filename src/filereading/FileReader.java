@@ -1,3 +1,4 @@
+package filereading;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -49,12 +50,12 @@ public class FileReader {
 	public static void fillStory (ArrayList<String> words) {
 		
 		
-	}
+	} 
 
 	
  	public static void main(String args[]) {
 		
-		Scanner in = openFile(args[0]);
+		Scanner in = openFile(args[2]);
 		String a = convToString(in);
 		System.out.println(a);
 		

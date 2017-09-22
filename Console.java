@@ -31,7 +31,7 @@ public static PrintWriter openDictionary(String f) {
 		try {
 			out = new PrintWriter(file);
 		} catch (FileNotFoundException ex ) {
-			System.out.println("Cant open file " + f);
+			System.out.println("Cant open fiel" + f);
 			return null;
 		}
 		
@@ -72,7 +72,7 @@ public static PrintWriter openDictionary(String f) {
 		writeJava(in, out);
 		writeJavaFooter(out);
 		//out.println(in.nextLine());
-		//System.out.println(in.nextLine());
+		System.out.println(in.nextLine());
 		in.close();
 		out.close();
 	}

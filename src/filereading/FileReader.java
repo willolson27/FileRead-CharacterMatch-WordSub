@@ -23,7 +23,7 @@ public class FileReader {
 		return input;
 	}
 	
-	public static PrintWriter printToFile(String f) {
+	public static PrintWriter makeWriter(String f) {
 		
 		File file = new File(f);
 		PrintWriter out = null;
@@ -31,11 +31,22 @@ public class FileReader {
 		try {
 			out = new PrintWriter(file);
 		} catch (FileNotFoundException ex ) {
-			System.out.println("Part 2: Unable to open file " + f);
+			System.out.println("Cant open file " + f);
 			return null;
 		}
 		
 		return out;
+	}
+	
+	public static void printToFile(Scanner input, PrintWriter output) {
+		
+		while (input.hasNextLine()) {
+			String word = input.nextLine();
+			
+			if (word.length() >= 1 && word.length() <=16) {
+			output.println("\t\"" + word + "\",");
+			}
+		}
 	}
 	
 	public static String convToString (Scanner input) {
@@ -71,10 +82,19 @@ public class FileReader {
 	
  	public static void main(String args[]) {
 		
+ 		if (args.length < 2) {
+			System.out.println("You did not provide a file to print");
+			System.exit(1);
+		}
 		Scanner in = openFile(args[2]);
-		String a = convToString(in);
-		System.out.println(a);
-		
+		if (in == null) System.exit(1);
+	
+	//	String a = convToString(in);
+	//	System.out.println(a);
+		PrintWriter out = makeWriter(args[3]);
+		printToFile(in, out);
+		in.close();
+		out.close();
 	}
 	
 }

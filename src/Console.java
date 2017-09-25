@@ -43,7 +43,7 @@ public static PrintWriter openDictionary(String f) {
 		while (input.hasNextLine()) {
 			String word = input.nextLine();
 			
-			if (word.length() >= 3 && word.length() <=5) {
+			if (word.length() >= 1 && word.length() <=16) {
 			output.println("\t\"" + word + "\",");
 			}
 		}
@@ -68,9 +68,9 @@ public static PrintWriter openDictionary(String f) {
 		if (in == null) System.exit(1);
 		
 		PrintWriter out = openDictionary(args[1]);
-		writeJavaHeader(out);
+	//	writeJavaHeader(out);
 		writeJava(in, out);
-		writeJavaFooter(out);
+	//	writeJavaFooter(out);
 		//out.println(in.nextLine());
 		//System.out.println(in.nextLine());
 		in.close();

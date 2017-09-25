@@ -1,7 +1,9 @@
 package filereading;
-import java.io.File;
+import java.io.*;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,12 +60,12 @@ public class FileReader {
 		return allLines;
 	}
 	
-	public boolean isEqual(String a, String b) {
+	public static String isEqual(File f1, File f2) {
 		
-		if (a == b)
-			return true;
+		if (f1.equals(f2))
+			return "Files are identical";
 		else
-			return false;
+			return "Files are not identical";
 	}
 	
 	public ArrayList<String> getArray (String f) {
@@ -92,7 +94,8 @@ public class FileReader {
 	//	String a = convToString(in);
 	//	System.out.println(a);
 		PrintWriter out = makeWriter(args[3]);
-		printToFile(in, out);
+		//printToFile(in, out);
+		out.println(isEqual( new File(args[2]), new File(args[4])));
 		in.close();
 		out.close();
 	}

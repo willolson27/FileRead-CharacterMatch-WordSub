@@ -1,11 +1,14 @@
 package filereading;
 import java.io.*;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+
+
 
 public class FileReader {
 	
@@ -60,9 +63,11 @@ public class FileReader {
 		return allLines;
 	}
 	
-	public static String isEqual(File f1, File f2) {
+	public static String isEqual(Path file1, Path file2) throws IOException {
 		
-		if (f1.equals(f2))
+		byte[] f1 = Files.readAllBytes(file1);
+		byte[] f2 = Files.readAllBytes(file2);
+		if (Arrays.equals(f1, f2))
 			return "Files are identical";
 		else
 			return "Files are not identical";
@@ -76,13 +81,18 @@ public class FileReader {
 		return words;
 	}
 	
+	public static void writeJava(PrintWriter output, String a) {
+		
+		output.println(a);
+	}
+	
 	public static void fillStory (ArrayList<String> words) {
 		
 		
 	} 
 
 	
- 	public static void main(String args[]) {
+ 	public static void main(String args[]) throws IOException {
 		
  		if (args.length < 2) {
 			System.out.println("You did not provide a file to print");
@@ -90,12 +100,15 @@ public class FileReader {
 		}
 		Scanner in = openFile(args[2]);
 		if (in == null) System.exit(1);
-	
+	//	Scanner file = openFile(args[3]);
 	//	String a = convToString(in);
 	//	System.out.println(a);
 		PrintWriter out = makeWriter(args[3]);
 		//printToFile(in, out);
-		out.println(isEqual( new File(args[2]), new File(args[4])));
+		Path file1 = Paths.get(args[2]);
+		Path file2 = Paths.get(args[4]);
+		String toOutputB = (isEqual(file1, file2));
+		writeJava(out, toOutputB);
 		in.close();
 		out.close();
 	}

@@ -1,1 +1,8 @@
+Braces Balanced
+
 Files are not identical
+
+Humpty Dumpty sat on a a,
+Humpty Dumpty had a a a;
+All the king's a and all the king's a
+Couldn't aa a together again.

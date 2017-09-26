@@ -1,3 +1,7 @@
+public class RamblecsDictionary
+{
+	private String[] words = 
+	{
 	"aback",
 	"abacus",
 	"abalone",
@@ -19910,3 +19914,5 @@
 	"zounds",
 	"zucchini",
 	"zygote",
+	}
+}

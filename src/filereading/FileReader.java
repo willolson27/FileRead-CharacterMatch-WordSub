@@ -8,13 +8,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-
-
 public class FileReader {
 	
-	
-//	private static ArrayList<String> partsOfSpeech = new ArrayList<String>();
-	private static ArrayList<String> userWords = new ArrayList<String>();
 	
 	public static Scanner openFile(String f) {
 		
@@ -46,16 +41,6 @@ public class FileReader {
 		return out;
 	}
 	
-	public static void printToFile(Scanner input, PrintWriter output) {
-		
-		while (input.hasNextLine()) {
-			String word = input.nextLine();
-			
-			if (word.length() >= 1 && word.length() <=16) {
-			output.println("\t\"" + word + "\",");
-			}
-		}
-	}
 	
 	public static String convToString (Scanner input) {
 		String allLines = "";
@@ -68,20 +53,20 @@ public class FileReader {
 	
 	public static String checkBraces(String file) {
 		
-		int numHasToBeClosed = 0;
+		int numOpened = 0;
 
 		for (int i = 0; i < file.length(); i++) {
-			if (file.charAt(i) == '{') {
-				numHasToBeClosed++;
+			if (file.charAt(i) == '{') 
+				numOpened++;
 
-			}
-			if (file.charAt(i) == '}') {
-				numHasToBeClosed--;
-
-			}
+			if (file.charAt(i) == '}') 
+				numOpened--;
+			
+			if (numOpened < 0) 				
+				break;	
 		}
 		
-		if (numHasToBeClosed == 0)
+		if (numOpened == 0)
 			return "Braces Balanced";
 		else
 			return "Braces not Balanced";
@@ -106,13 +91,10 @@ public class FileReader {
 			if (f.charAt(i) == '<') {
 				String a = f.substring(i, (f.indexOf(">", i) + 1));
 				pos.add(a);
-			}
-			
+			}	
 		}
 		
-		
-		return pos;
-		
+		return pos;	
 	}
 	
 	public static ArrayList<String> getArray (ArrayList<String> partsOfSpeech) {
@@ -148,13 +130,19 @@ public class FileReader {
 		
 		if (storySections.size() > words.size()) {
 			for (int j = 0; j < storySections.size() - 1; j++) {
-				filledStory += storySections.get(j) + words.get(j);
+				if (words.get(j) != null && words.get(j) != "")
+					filledStory += storySections.get(j) + words.get(j);
+				else
+					filledStory += storySections.get(j) + "<missing word>";
 			}
 			filledStory += storySections.get(storySections.size() - 1);
 		}
 		else if (storySections.size() < words.size()) {
 			for (int j = 0; j < words.size() - 1; j++) {
-				filledStory += storySections.get(j) + words.get(j);
+				if (words.get(j) != null)
+					filledStory += storySections.get(j) + words.get(j);
+				else
+					filledStory += storySections.get(j) + "<missing word>";
 			}
 			filledStory += words.get(words.size() - 1);
 		}
@@ -182,16 +170,16 @@ public class FileReader {
 		}
  			
 		
-		PrintWriter out = makeWriter(args[3]);
+		PrintWriter out = makeWriter("output.txt");
 		
 		Scanner in = openFile(args[2]);
 		if (in == null) System.exit(1);
 		String toOutputA = (checkBraces(convToString(in)));
 		Path file1 = Paths.get(args[2]);
-		Path file2 = Paths.get(args[4]);
+		Path file2 = Paths.get(args[3]);
 		String toOutputB = (isEqual(file1, file2));
 		
-		Scanner in2 = openFile(args[4]);
+		Scanner in2 = openFile(args[3]);
 		if (in2 == null) System.exit(1);
 		String storyPos = convToString(in2);
 		ArrayList<String> partsOfSpeech = pullPoS(storyPos);

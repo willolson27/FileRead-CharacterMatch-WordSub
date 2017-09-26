@@ -68,9 +68,9 @@ public static PrintWriter openDictionary(String f) {
 		if (in == null) System.exit(1);
 		
 		PrintWriter out = openDictionary(args[1]);
-	//	writeJavaHeader(out);
+		writeJavaHeader(out);
 		writeJava(in, out);
-	//	writeJavaFooter(out);
+		writeJavaFooter(out);
 		//out.println(in.nextLine());
 		//System.out.println(in.nextLine());
 		in.close();
